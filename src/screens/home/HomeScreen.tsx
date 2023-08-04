@@ -1,15 +1,29 @@
+import { HomeCard } from '@components/HomeCard/HomeCard';
 import { MainScreenProps } from '@screens/MainNavigationStack';
+import { homeScreenItems } from 'constants/homeScreenItems';
 import { FC } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 type Props = MainScreenProps<'home'>;
 
 export const HomeScreen: FC<Props> = ({ route, navigation }) => {
-  const { userId } = route.params;
-  
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <FlatList
+        data={homeScreenItems}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: 40,
+          paddingTop: 10,
+        }}
+        renderItem={({ item }) => (
+          <HomeCard
+            item={item}
+            onPress={() => navigation.navigate(item.screenName)}
+          />
+        )}
+        keyExtractor={(item) => item.title}
+      />
     </View>
   );
 };

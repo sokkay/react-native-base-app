@@ -6,9 +6,10 @@ import { FC } from 'react';
 import { NestedScreen } from './NestedScreen/NestedScreen';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NestedDrawerScreenProps } from '../NestedDrawer';
+import { HeaderRight } from '@components/Navigation/HeaderRight';
 
 export type ThirdStackRouteParamList = {
-  nestedScreen: { userId: string };
+  nestedScreen: { userId: string } | undefined;
 };
 
 export type ThirdStackScreenProps<
@@ -20,9 +21,20 @@ export type ThirdStackScreenProps<
 
 const Stack = createStackNavigator<ThirdStackRouteParamList>();
 
-export const ThirdStack: FC = () => {
+export const ThirdStack: FC<NestedDrawerScreenProps<'third'>> = ({
+  navigation,
+}) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerRight: () => (
+          <HeaderRight onPress={() => navigation.navigate('home')} />
+        ),
+        headerRightContainerStyle: {
+          paddingRight: 5,
+        },
+      }}
+    >
       <Stack.Screen name='nestedScreen' component={NestedScreen} />
     </Stack.Navigator>
   );

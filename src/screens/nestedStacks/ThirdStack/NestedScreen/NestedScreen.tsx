@@ -4,8 +4,8 @@ import { ThirdStackScreenProps } from '../ThirdStack';
 
 type Props = ThirdStackScreenProps<'nestedScreen'>;
 
-export const NestedScreen: FC<Props> = ({ route }) => {
-  const { userId } = route.params;
+export const NestedScreen: FC<Props> = ({ route, navigation }) => {
+  const userId = route.params?.userId || 'No hay userId';
 
   return (
     <View style={styles.container}>
